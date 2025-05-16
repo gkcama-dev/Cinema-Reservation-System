@@ -4,6 +4,8 @@
  */
 package guiManager;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +15,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.mySQL;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -586,6 +591,11 @@ public class MovieScheduleTime extends javax.swing.JPanel {
         jButton1.setText("Print");
         jButton1.setBorderPainted(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel32.add(jButton1);
 
         jPanel21.add(jPanel32, java.awt.BorderLayout.LINE_END);
@@ -880,6 +890,24 @@ public class MovieScheduleTime extends javax.swing.JPanel {
     private void jDateChooser4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser4MouseClicked
         jButton4.grabFocus();
     }//GEN-LAST:event_jDateChooser4MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+         try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
+
+            JasperPrint report = JasperFillManager.fillReport("src/reports/ASMReport.jasper", null, connection);
+            JasperViewer.viewReport(report, false);
+            
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
