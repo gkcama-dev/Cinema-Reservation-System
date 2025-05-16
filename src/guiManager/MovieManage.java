@@ -559,7 +559,7 @@ public class MovieManage extends javax.swing.JPanel {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
 
-            JasperPrint report = JasperFillManager.fillReport("src/reports/MovieNew.jasper", null, connection);
+            JasperPrint report = JasperFillManager.fillReport("src/reports/AMReport2.jasper", null, connection);
             JasperViewer.viewReport(report, false);
             
             connection.close();
