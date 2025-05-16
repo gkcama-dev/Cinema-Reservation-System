@@ -28,7 +28,7 @@ public class CustomersView extends javax.swing.JPanel {
 
     private void init() {
         jComboBox1.putClientProperty("JComponent.roundRect", true);
-        jButton1.putClientProperty("JButton.buttonType", "roundRect");
+       
 
     }
 
@@ -109,8 +109,6 @@ public class CustomersView extends javax.swing.JPanel {
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
@@ -243,7 +241,7 @@ public class CustomersView extends javax.swing.JPanel {
 
         jPanel17.add(jPanel18, java.awt.BorderLayout.LINE_START);
 
-        jPanel19.setLayout(new java.awt.GridLayout());
+        jPanel19.setLayout(new java.awt.GridLayout(1, 0));
         jPanel19.add(jLabel3);
         jPanel19.add(jLabel5);
         jPanel19.add(jLabel4);
@@ -287,30 +285,11 @@ public class CustomersView extends javax.swing.JPanel {
         jPanel14.setPreferredSize(new java.awt.Dimension(929, 45));
         jPanel14.setLayout(new java.awt.BorderLayout());
 
-        jPanel22.setPreferredSize(new java.awt.Dimension(300, 45));
-        jPanel22.setLayout(new java.awt.GridLayout(1, 0));
-
-        jButton1.setBackground(new java.awt.Color(0, 65, 112));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/print-32.png"))); // NOI18N
-        jButton1.setText("Print");
-        jButton1.setBorderPainted(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel22.add(jButton1);
-
-        jPanel14.add(jPanel22, java.awt.BorderLayout.LINE_END);
-
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 673, Short.MAX_VALUE)
+            .addGap(0, 973, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,10 +358,6 @@ public class CustomersView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jComboBox1.setSelectedIndex(0);
         viewCustomer();
@@ -390,7 +365,6 @@ public class CustomersView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -412,7 +386,6 @@ public class CustomersView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
