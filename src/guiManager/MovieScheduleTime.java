@@ -32,11 +32,23 @@ public class MovieScheduleTime extends javax.swing.JPanel {
 
     public MovieScheduleTime() {
         initComponents();
+        init();
         loadMovieHall();
         loadMovieName();
         loadStartEndTime();
         loadMovieTimeSchedule();
         //jButton5.setEnabled(false);
+    }
+    
+     private void init() {
+
+        jButton4.putClientProperty("JButton.buttonType", "roundRect");
+        jButton5.putClientProperty("JButton.buttonType", "roundRect");
+        jButton6.putClientProperty("JButton.buttonType", "roundRect");
+        jButton8.putClientProperty("JButton.buttonType", "roundRect");
+        jButton1.putClientProperty("JButton.buttonType", "roundRect");
+      
+
     }
 
     private void loadMovieName() {

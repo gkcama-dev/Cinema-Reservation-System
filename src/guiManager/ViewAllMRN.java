@@ -27,6 +27,15 @@ public class ViewAllMRN extends javax.swing.JPanel {
         initComponents();
         LoadMovieMRN();
         hint();
+        init();
+    }
+    
+     private void init() {
+
+        jButton2.putClientProperty("JButton.buttonType", "roundRect");
+        jButton1.putClientProperty("JButton.buttonType", "roundRect");
+       
+
     }
     
     private void hint() {
@@ -460,7 +469,7 @@ public class ViewAllMRN extends javax.swing.JPanel {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
 
-            JasperPrint report = JasperFillManager.fillReport("src/reports/MovieGRNNew11.jasper", null, connection);
+            JasperPrint report = JasperFillManager.fillReport("src/reports/AMRNReport.jasper", null, connection);
             JasperViewer.viewReport(report, true);
 
             connection.close();
