@@ -467,7 +467,7 @@ public class EmployeeManage extends javax.swing.JPanel {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
 
-            JasperPrint report = JasperFillManager.fillReport("src/reports/AllEmployeeNew.jasper",null, connection);
+            JasperPrint report = JasperFillManager.fillReport("src/reports/AEReport.jasper",null, connection);
             JasperViewer.viewReport(report,false);
             
 //            JasperPrint report = JasperFillManager.fillReport("src/reports/AllEmployee.jasper", null, connection);
