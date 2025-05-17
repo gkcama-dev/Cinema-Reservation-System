@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.mySQL;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -1656,6 +1657,8 @@ public class snackbar extends javax.swing.JPanel {
 
             JasperPrint report = JasperFillManager.fillReport("src/reports/ASReport.jasper",null,connection);
             JasperViewer.viewReport(report,false);
+            
+             JasperExportManager.exportReportToPdfFile(report, "print report/super admin reports/snack bar/products.pdf");
 
             connection.close();
 
@@ -1673,6 +1676,8 @@ public class snackbar extends javax.swing.JPanel {
 
             JasperPrint report = JasperFillManager.fillReport("src/reports/AllStocksReports.jasper",null,connection);
             JasperViewer.viewReport(report,false);
+            
+             JasperExportManager.exportReportToPdfFile(report, "print report/super admin reports/snack bar/stocks.pdf");
 
             connection.close();
 
@@ -1691,6 +1696,8 @@ public class snackbar extends javax.swing.JPanel {
 
             JasperPrint report = JasperFillManager.fillReport("src/reports/AllCompaniesReports.jasper",null,connection);
             JasperViewer.viewReport(report,false);
+            
+             JasperExportManager.exportReportToPdfFile(report, "print report/super admin reports/snack bar/snackComapnies.pdf");
 
             connection.close();
 
@@ -1708,6 +1715,8 @@ public class snackbar extends javax.swing.JPanel {
 
             JasperPrint report = JasperFillManager.fillReport("src/reports/AllSnackSuppliers.jasper",null,connection);
             JasperViewer.viewReport(report,false);
+            
+            JasperExportManager.exportReportToPdfFile(report, "print report/super admin reports/snack bar/snackSuppliers.pdf");
 
             connection.close();
 

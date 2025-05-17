@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.mySQL;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -31,6 +32,7 @@ public class movie extends javax.swing.JPanel {
     public movie() {
         initComponents();
         LoadMovieTable();
+        LoadInvoiceTable();
         loadMovieTimeSchedule();
         loadMovieGRN();
         loardCompany();
@@ -39,22 +41,26 @@ public class movie extends javax.swing.JPanel {
         hint();
 
     }
-    
-        private void hint() {
+
+    private void hint() {
         if (jTextField9 != null) {
             jTextField9.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Number");
-        }if (jTextField10 != null) {
+        }
+        if (jTextField10 != null) {
             jTextField10.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Number");
-        }if (jTextField11 != null) {
+        }
+        if (jTextField11 != null) {
             jTextField11.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Number");
-        }if (jTextField12 != null) {
+        }
+        if (jTextField12 != null) {
             jTextField12.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Number");
-        }if (jTextField13 != null) {
+        }
+        if (jTextField13 != null) {
             jTextField13.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Number");
-        }if (jTextField14 != null) {
+        }
+        if (jTextField14 != null) {
             jTextField14.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Number");
         }
-        
 
     }
 
@@ -90,26 +96,64 @@ public class movie extends javax.swing.JPanel {
 
     }
 
+    private void LoadInvoiceTable() {
+
+        try {
+
+            ResultSet resultSet = mySQL.executeSearch("SELECT  * FROM `movie_invoiceitem` INNER JOIN `invoice` ON `movie_invoiceitem`.`invoice_id` = `invoice`.id "
+                    + "INNER JOIN `ticket` ON `movie_invoiceitem`.`ticket_id` = `ticket`.`id` "
+                    + "INNER JOIN `schedule` ON `movie_invoiceitem`.`schedule_id` = `schedule`.`id` "
+                    + "INNER JOIN `payment_method` ON `invoice`.`payment_method_id` = `payment_method`.`id` "
+                    + "INNER JOIN `movie` ON `schedule`.`movie_movie_id` = `movie`.`movie_id`"
+                    + "INNER JOIN `movie_customer_type` ON `ticket`.`movie_customer_type_id` = `movie_customer_type`.`id`  ");
+
+            DefaultTableModel dtm = (DefaultTableModel) jTable2.getModel();
+            dtm.setRowCount(0);
+
+            while (resultSet.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("invoice.id"));
+                vector.add(resultSet.getString("movie.name"));
+                vector.add(resultSet.getString("schedule.hall_id"));
+                vector.add(resultSet.getString("sheet_number"));
+                vector.add(resultSet.getString("customer_mobile"));
+                vector.add(resultSet.getString("movie_customer_type.customer_type_name"));
+                vector.add(resultSet.getString("payment_method.name"));
+                vector.add(resultSet.getString("invoice.paid_amount"));
+                vector.add(resultSet.getString("invoice.qty"));
+                vector.add(resultSet.getString("invoice.user_email"));
+                vector.add(resultSet.getString("invoice.date"));
+
+                dtm.addRow(vector);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void loadMovieGRN() {
 
         try {
 
-         ResultSet resultSet = mySQL.executeSearch("SELECT * FROM `movie_grn` INNER JOIN `movie` ON "
+            ResultSet resultSet = mySQL.executeSearch("SELECT * FROM `movie_grn` INNER JOIN `movie` ON "
                     + "`movie_grn`.`movie_movie_id` = `movie`.`movie_id`"
                     + "INNER JOIN `movie_supplier` ON "
                     + "`movie_grn`.`movie_supplier_supplier_mobile` = `movie_supplier`.supplier_mobile");
-            
-         DefaultTableModel dtm = (DefaultTableModel) jTable4.getModel();
-         dtm.setRowCount(0);
-         
-            while (resultSet.next()) {                
-                
+
+            DefaultTableModel dtm = (DefaultTableModel) jTable4.getModel();
+            dtm.setRowCount(0);
+
+            while (resultSet.next()) {
+
                 Vector<String> vector = new Vector<>();
                 vector.add(resultSet.getString("id"));
                 vector.add(resultSet.getString("movie_supplier.supplier_mobile"));
                 vector.add(resultSet.getString("movie.name"));
                 vector.add(resultSet.getString("payed_amount"));
-                
+
                 dtm.addRow(vector);
             }
 
@@ -154,8 +198,8 @@ public class movie extends javax.swing.JPanel {
         }
 
     }
-    
-     private void loardCompany() {
+
+    private void loardCompany() {
 
         try {
             java.sql.ResultSet result = mySQL.executeSearch("SELECT * FROM `movie_company`");
@@ -176,8 +220,8 @@ public class movie extends javax.swing.JPanel {
         }
 
     }
-     
-     private void loardSuppliers(String column, String orderby, String fname) {
+
+    private void loardSuppliers(String column, String orderby, String fname) {
         try {
 
             ResultSet resultset = mySQL.executeSearch("SELECT * FROM `movie_supplier` INNER JOIN `movie_company` ON `movie_supplier`.`movie_company_id`=`movie_company`.`id` WHERE `fname` LIKE '" + fname + "%' ORDER BY `" + column + "` " + orderby + "");
@@ -670,6 +714,11 @@ public class movie extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setText("Print Report");
         jButton2.setBorderPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -770,15 +819,23 @@ public class movie extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Invoice ID", "Movie Name", "Hall ", "Sheet Number", "Customer Mobile", "Customer Type", "Payment Method", "Paid Amount", "QTY", "Cashier", "Date"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jPanel80.add(jScrollPane2);
@@ -1650,8 +1707,8 @@ public class movie extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-         try {
+
+        try {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
@@ -1659,12 +1716,14 @@ public class movie extends javax.swing.JPanel {
             JasperPrint report = JasperFillManager.fillReport("src/reports/AMReport2.jasper", null, connection);
             JasperViewer.viewReport(report, false);
             
+            JasperExportManager.exportReportToPdfFile(report, "print report/cinema manger reports/movies.pdf");
+
             connection.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1676,6 +1735,8 @@ public class movie extends javax.swing.JPanel {
             JasperPrint report = JasperFillManager.fillReport("src/reports/ASMReport.jasper", null, connection);
             JasperViewer.viewReport(report, false);
             
+            JasperExportManager.exportReportToPdfFile(report, "print report/cinema manger reports/movieSchedule.pdf");
+
             connection.close();
 
         } catch (Exception e) {
@@ -1686,39 +1747,60 @@ public class movie extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
 
-            
-               Class.forName("com.mysql.cj.jdbc.Driver");
-               Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db","root","Geeth@200104");
-               
-               JasperPrint report = JasperFillManager.fillReport("src/reports/ASupReport.jasper", null,connection);
-               JasperViewer.viewReport(report,false);
-      
-               
-               connection.close();
-  
-               
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
-         try {
-
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
 
-            JasperPrint report = JasperFillManager.fillReport("src/reports/ACReport.jasper", null, connection);
+            JasperPrint report = JasperFillManager.fillReport("src/reports/ASupReport.jasper", null, connection);
             JasperViewer.viewReport(report, false);
+            
+            JasperExportManager.exportReportToPdfFile(report, "print report/cinema manger reports/cinemaSuppliers.pdf");
 
             connection.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
+
+            JasperPrint report = JasperFillManager.fillReport("src/reports/ACReport.jasper", null, connection);
+            JasperViewer.viewReport(report, false);
+            
+            JasperExportManager.exportReportToPdfFile(report, "print report/cinema manger reports/cinemaCompanies.pdf");
+
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
+
+            JasperPrint report = JasperFillManager.fillReport("src/reports/AInvoices.jasper", null, connection);
+            JasperViewer.viewReport(report, false);
+            
+            JasperExportManager.exportReportToPdfFile(report, "print report/cinema manger reports/invoices.pdf");
+            
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

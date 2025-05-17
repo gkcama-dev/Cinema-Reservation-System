@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.mySQL;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -829,8 +830,7 @@ public class employee extends javax.swing.JPanel {
             JasperPrint report = JasperFillManager.fillReport("src/reports/AEReport.jasper",null, connection);
             JasperViewer.viewReport(report,false);
             
-//            JasperPrint report = JasperFillManager.fillReport("src/reports/AllEmployee.jasper", null, connection);
-//            JasperViewer.viewReport(report, false);
+             JasperExportManager.exportReportToPdfFile(report, "print report/super admin reports/cinema/employee.pdf");
             
             connection.close();
 

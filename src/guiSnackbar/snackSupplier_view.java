@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JToggleButton;
 import model.mySQL;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -399,6 +400,8 @@ public class snackSupplier_view extends javax.swing.JDialog {
 
             JasperPrint report = JasperFillManager.fillReport("src/reports/AllSnackSuppliers.jasper",null,connection);
             JasperViewer.viewReport(report,false);
+            
+              JasperExportManager.exportReportToPdfFile(report, "print report/snack bar manger reports/snackSuppliers.pdf");
 
             connection.close();
 

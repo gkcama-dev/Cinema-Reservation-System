@@ -33,7 +33,6 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class supplierManagement extends javax.swing.JPanel {
 
-   
     private static HashMap<String, String> movie_company = new HashMap<>();
 
     /**
@@ -789,8 +788,6 @@ public class supplierManagement extends javax.swing.JPanel {
 
         }
 
-      
-
         if (evt.getClickCount() == 2) {
 
             String supName = String.valueOf(jTable1.getValueAt(row, 1));
@@ -914,7 +911,7 @@ public class supplierManagement extends javax.swing.JPanel {
 
             connection.close();
 
-            JasperExportManager.exportReportToPdfFile(report, "suppliertest_Landscape.pdf");
+            JasperExportManager.exportReportToPdfFile(report, "print report/snack bar manger reports/snackSuppliers.pdf");
 
         } catch (Exception e) {
             e.printStackTrace();

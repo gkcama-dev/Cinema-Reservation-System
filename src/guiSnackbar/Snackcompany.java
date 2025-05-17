@@ -14,6 +14,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.mySQL;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -398,6 +399,8 @@ public class Snackcompany extends javax.swing.JPanel {
 
             JasperPrint report = JasperFillManager.fillReport("src/reports/AllCompaniesReports.jasper",null,connection);
             JasperViewer.viewReport(report,false);
+            
+             JasperExportManager.exportReportToPdfFile(report, "print report/snack bar manger reports/snackCompanies.pdf");
 
             connection.close();
 
