@@ -100,7 +100,7 @@ public class snackbar extends javax.swing.JPanel {
     
     private void loadSuppliers() {
         try {
-            ResultSet resultSet = mySQL.executeSearch("SELECT * FROM `snack_supplier`");
+            ResultSet resultSet = mySQL.executeSearch("SELECT * FROM `snack_supplier` INNER JOIN `company` ON `company`.`id` = `snack_supplier`.`company_id`");
                     
             DefaultTableModel defaultTableModel =  (DefaultTableModel) jTable1.getModel();
             defaultTableModel.setRowCount(0);
@@ -111,7 +111,7 @@ public class snackbar extends javax.swing.JPanel {
                 vector.add(resultSet.getString("fname"));
                 vector.add(resultSet.getString("lname"));
                 vector.add(resultSet.getString("email"));
-                vector.add(resultSet.getString("company_id"));
+                vector.add(resultSet.getString("company.name"));
                 
               defaultTableModel.addRow(vector);
                 
@@ -1273,6 +1273,11 @@ public class snackbar extends javax.swing.JPanel {
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Print Report");
         jButton5.setBorderPainted(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel58Layout = new javax.swing.GroupLayout(jPanel58);
         jPanel58.setLayout(jPanel58Layout);
@@ -1487,6 +1492,11 @@ public class snackbar extends javax.swing.JPanel {
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Print Report");
         jButton6.setBorderPainted(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel69Layout = new javax.swing.GroupLayout(jPanel69);
         jPanel69.setLayout(jPanel69Layout);
@@ -1661,7 +1671,7 @@ public class snackbar extends javax.swing.JPanel {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
 
-            JasperPrint report = JasperFillManager.fillReport("src/reports/AStockA4.jasper",null,connection);
+            JasperPrint report = JasperFillManager.fillReport("src/reports/AllStocksReports.jasper",null,connection);
             JasperViewer.viewReport(report,false);
 
             connection.close();
@@ -1671,6 +1681,40 @@ public class snackbar extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       
+         try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
+
+            JasperPrint report = JasperFillManager.fillReport("src/reports/AllCompaniesReports.jasper",null,connection);
+            JasperViewer.viewReport(report,false);
+
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+       try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
+
+            JasperPrint report = JasperFillManager.fillReport("src/reports/AllSnackSuppliers.jasper",null,connection);
+            JasperViewer.viewReport(report,false);
+
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
