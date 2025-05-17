@@ -22,6 +22,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import java.sql.DriverManager;
 import java.sql.Connection;
+import net.sf.jasperreports.engine.JasperExportManager;
 
 /**
  *
@@ -469,6 +470,8 @@ public class EmployeeManage extends javax.swing.JPanel {
 
             JasperPrint report = JasperFillManager.fillReport("src/reports/AEReport.jasper",null, connection);
             JasperViewer.viewReport(report,false);
+            
+         
             
 //            JasperPrint report = JasperFillManager.fillReport("src/reports/AllEmployee.jasper", null, connection);
 //            JasperViewer.viewReport(report, false);
