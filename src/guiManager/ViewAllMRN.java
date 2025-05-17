@@ -470,7 +470,7 @@ public class ViewAllMRN extends javax.swing.JPanel {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/zgencrms_db", "root", "Geeth@200104");
 
             JasperPrint report = JasperFillManager.fillReport("src/reports/AMRNReport.jasper", null, connection);
-            JasperViewer.viewReport(report, true);
+            JasperViewer.viewReport(report, false);
 
             connection.close();
 
