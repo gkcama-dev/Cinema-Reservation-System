@@ -574,6 +574,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/report.png"))); // NOI18N
         jButton15.setText("Report");
         jButton15.setBorderPainted(false);
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         jPanel21.add(jButton15);
 
         jButton3.setBackground(new java.awt.Color(31, 35, 51));
@@ -1347,6 +1352,16 @@ public class AdminDashboard extends javax.swing.JFrame {
         loginoption.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+       
+        jPanel24.removeAll();
+
+        guiManager.movie Movie = new guiManager.movie();
+        jPanel24.add(Movie, BorderLayout.CENTER);
+        SwingUtilities.updateComponentTreeUI(jPanel24);
+        
+    }//GEN-LAST:event_jButton15ActionPerformed
 
     /**
      * @param args the command line arguments
